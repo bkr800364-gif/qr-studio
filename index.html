@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1020">
+    <meta name="description" content="أنشئ رمز QR للروابط والنصوص بسهولة.">
+    <title>QR Studio | منشئ QR Code</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="topbar">
+        <a href="#" class="brand" aria-label="QR Studio">
+            <span class="brand-icon">⌗</span>
+            <span>QR<span class="brand-accent"> Studio</span></span>
+        </a>
+        <span class="topbar-badge">
+            <span class="status-dot"></span>
+            منشئ رموز QR
+        </span>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="eyebrow">
+                <span>✦</span>
+                أداة مجانية وسهلة الاستخدام
+            </div>
+            <h1>حوّل أفكارك إلى <span>QR Code</span></h1>
+            <p>
+                أنشئ رمز QR خاصًا بروابطك ونصوصك خلال ثوانٍ،
+                وحمّله كصورة بجودة مناسبة للمشاركة والطباعة.
+            </p>
+        </section>
+
+        <section class="workspace">
+            <div class="panel input-panel">
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-number">01</span>
+                        <h2>محتوى الرمز</h2>
+                    </div>
+                    <span class="small-label">الإعدادات</span>
+                </div>
+
+                <div class="field-group">
+                    <label>نوع المحتوى</label>
+                    <div class="type-selector">
+                        <button type="button" class="type-btn active" data-type="link" aria-pressed="true">
+                            <span>↗</span> رابط موقع
+                        </button>
+                        <button type="button" class="type-btn" data-type="text" aria-pressed="false">
+                            <span>☰</span> نص عادي
+                        </button>
+                    </div>
+                </div>
+
+                <form id="qrForm">
+                    <div class="field-group">
+                        <label for="qrInput" id="inputLabel">رابط الموقع</label>
+                        <textarea id="qrInput" rows="4" maxlength="2500" placeholder="https://example.com" required
+                            spellcheck="false"></textarea>
+                        <div class="field-footer">
+                            <span id="inputHint">أدخل رابطًا يبدأ بـ https:// أو http://</span>
+                            <span id="charCount">0 / 2500</span>
+                        </div>
+                    </div>
+
+                    <div class="field-group">
+                        <label for="qrSize">حجم الصورة</label>
+                        <select id="qrSize">
+                            <option value="200">200 × 200 — صغير</option>
+                            <option value="300" selected>300 × 300 — متوسط</option>
+                            <option value="400">400 × 400 — كبير</option>
+                            <option value="600">600 × 600 — للطباعة</option>
+                        </select>
+                    </div>
+
+                    <div class="field-group">
+                        <label>لون الرمز</label>
+                        <div class="color-options">
+                            <button type="button" class="color-btn active" data-color="#111827" style="--swatch:#111827"
+                                aria-label="أسود" aria-pressed="true"></button>
+                            <button type="button" class="color-btn" data-color="#2563eb" style="--swatch:#2563eb"
+                                aria-label="أزرق" aria-pressed="false"></button>
+                            <button type="button" class="color-btn" data-color="#059669" style="--swatch:#059669"
+                                aria-label="أخضر" aria-pressed="false"></button>
+                            <button type="button" class="color-btn" data-color="#7c3aed" style="--swatch:#7c3aed"
+                                aria-label="بنفسجي" aria-pressed="false"></button>
+                            <button type="button" class="color-btn" data-color="#dc2626" style="--swatch:#dc2626"
+                                aria-label="أحمر" aria-pressed="false"></button>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="primary-btn" id="generateBtn">
+                        <span>✦</span>
+                        إنشاء رمز QR
+                        <span class="btn-arrow">←</span>
+                    </button>
+                </form>
+
+                <div class="privacy-note">
+                    <span>◈</span>
+                    <p>أدخل محتواك بنفسك. تحتاج المكتبة إلى اتصال بالإنترنت عند تحميلها أول مرة.</p>
+                </div>
+            </div>
+
+            <div class="panel preview-panel">
+                <div class="panel-heading">
+                    <div>
+                        <span class="section-number">02</span>
+                        <h2>معاينة الرمز</h2>
+                    </div>
+                    <span class="live-badge">
+                        <span class="status-dot"></span>
+                        المعاينة
+                    </span>
+                </div>
+
+                <div class="qr-stage">
+                    <div class="qr-frame" id="qrFrame">
+                        <div id="qrPlaceholder" class="qr-placeholder">
+                            <div class="placeholder-icon">⌗</div>
+                            <strong>سيظهر الرمز هنا</strong>
+                            <span>أدخل المحتوى واضغط على إنشاء رمز QR</span>
+                        </div>
+                        <div id="qrcode" aria-label="معاينة رمز QR"></div>
+                    </div>
+                    <div id="qrStatus" class="qr-status" aria-live="polite">
+                        <span class="status-dot"></span>
+                        بانتظار إنشاء الرمز
+                    </div>
+                </div>
+
+                <div class="result-info">
+                    <div class="info-row">
+                        <span>نوع الرمز</span>
+                        <strong id="resultType">رابط موقع</strong>
+                    </div>
+                    <div class="info-row">
+                        <span>الأبعاد</span>
+                        <strong id="resultSize">300 × 300 px</strong>
+                    </div>
+                    <div class="info-row">
+                        <span>حالة الرمز</span>
+                        <strong id="resultState" class="state-muted">لم يتم الإنشاء</strong>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="download-btn" id="downloadBtn" disabled>
+                        <span>↓</span>
+                        تحميل PNG
+                    </button>
+                    <button type="button" class="secondary-btn" id="copyBtn" disabled>
+                        <span>▢</span>
+                        نسخ المحتوى
+                    </button>
+                </div>
+
+                <p class="preview-tip">
+                    <span>ⓘ</span>
+                    جرّب مسح الرمز بكاميرا هاتفك بعد تحميله.
+                </p>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <span class="feature-icon blue">↗</span>
+                <div>
+                    <h3>روابط ونصوص</h3>
+                    <p>حوّل محتواك إلى رمز قابل للمسح.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon green">↓</span>
+                <div>
+                    <h3>تحميل سريع</h3>
+                    <p>احفظ الرمز بصيغة PNG.</p>
+                </div>
+            </div>
+            <div class="feature-card">
+                <span class="feature-icon purple">◇</span>
+                <div>
+                    <h3>تخصيص الألوان</h3>
+                    <p>اختر اللون والحجم المناسبين.</p>
+                </div>
+            </div>
+        </section>
+
+        <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    </main>
+
+    <footer class="footer">
+        <p>QR Studio <span>•</span> أداة لإنشاء رموز QR بسهولة</p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
